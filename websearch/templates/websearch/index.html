@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>HTML5</title>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+
+    <![endif]-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+
+    {% block title %}
+    {% endblock%}
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+</head>
+<body bgcolor=#84A6D3>
+
+
+<center>
+    <form action="{% url 'results_page' %}" method="POST">
+        {% csrf_token %}
+    <textarea rows="10" cols="45" name="text" placeholder="Введите ваши пожелания к книге здесь..."
+              id="searchbox"></textarea>
+        <div class="filterbox">
+            <div class="flexbox box">
+                <div class="left-side">
+                    <div class="one"><p>Объём</p>
+                        от
+                        <input type="text" name="min_volume" class="rounded-input"/>
+                        до
+                        <input type="text" name="max_volume"  class="rounded-input"/></div>
+                    <div class="three"><p align="center">Год написания</p>
+                        от
+                        <input type="text" name="min_year" class="rounded-input"/>
+                        до
+                        <input type="text" name="max_year" class="rounded-input"/>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <div class="two"><p>Рейтинг</p>
+                        <div class="container">
+                            <ul class="ks-cboxtags">
+                                <li><input type="checkbox" id="checkboxOne" value="1"><label for="checkboxOne">1</label>
+                                </li>
+                                <li><input type="checkbox" id="checkboxTwo" value="2" checked><label
+                                        for="checkboxTwo">2</label></li>
+                                <li><input type="checkbox" id="checkboxThree" value="3" checked><label
+                                        for="checkboxThree">3</label></li>
+                                <li><input type="checkbox" id="checkboxFour" value="4"><label
+                                        for="checkboxFour">4</label>
+                                </li>
+                                <li><input type="checkbox" id="checkboxFive" value="5"><label
+                                        for="checkboxFive">5</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="four"><p>Возрастные ограничения</p>
+                        <div class="container">
+                            <ul class="ks-cboxtags">
+                                <li><input type="checkbox" id="checkboxAgeOne" value="+0"><label
+                                        for="checkboxAgeOne">+0</label></li>
+                                <li><input type="checkbox" id="checkboxAgeTwo" value="+6" checked><label
+                                        for="checkboxAgeTwo">+6</label></li>
+                                <li><input type="checkbox" id="checkboxAgeThree" value="+12" checked><label
+                                        for="checkboxAgeThree">+12</label></li>
+                                <li><input type="checkbox" id="checkboxAgeFour" value="+16"><label
+                                        for="checkboxAgeFour">+16</label></li>
+                                <li><input type="checkbox" id="checkboxAgeFive" value="+18"><label
+                                        for="checkboxAgeFive">+18</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="search_button" type="submit">Найти</button>
+    </form>
+
+</center>
+<div id="results_background">
+    {% block content %}
+    {% endblock%}
+</div>
+
+
+</body>
+</html>

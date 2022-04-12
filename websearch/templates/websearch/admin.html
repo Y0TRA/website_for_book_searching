@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>HTML5</title>
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+
+    <script type="text/javascript" src="/eel.js"></script>
+
+
+    <![endif]-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
+
+    {% block title %}
+    {% endblock%}
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+</head>
+<body bgcolor=#84A6D3>
+
+<center>
+
+    <form enctype="multipart/form-data"  action="{% url 'admin_save_page' %}" method="post">
+        {% csrf_token %}
+        <div class="admin_container">
+
+            <div class="admin_column">
+                <div class="column_text">Добавление новой книги</div>
+                <input type="text" name="book" class="name_input" placeholder="Название">
+                <input type="text" name="author" class="name_input" placeholder="Автор">
+                <button class="save_button" type="submit" >Сохранить</button>
+
+            </div>
+            <div class="admin_column">
+                <div class="column_text">Возраст</div>
+
+                <div class="container">
+                    <ul class="ks-cboxtags">
+                        <li><input type="radio" id="checkboxAgeOne" value="+0" name="age"><label
+                                for="checkboxAgeOne">+0</label></li>
+                        <li><input type="radio" id="checkboxAgeTwo" value="+6" name="age"><label
+                                for="checkboxAgeTwo">+6</label></li>
+                        <li><input type="radio" id="checkboxAgeThree" value="+12" name="age"><label
+                                for="checkboxAgeThree">+12</label></li>
+                        <li><input type="radio" id="checkboxAgeFour" value="+16" name="age"><label
+                                for="checkboxAgeFour">+16</label></li>
+                        <li><input type="radio" id="checkboxAgeFive" value="+18" name="age"><label
+                                for="checkboxAgeFive">+18</label></li>
+                    </ul>
+                </div>
+
+                <div class="column_text">Рейтинг</div>
+                <div class="container">
+                    <ul class="ks-cboxtags">
+                        <li><input type="radio" id="checkboxOne" value="1" name="rating"><label
+                                for="checkboxOne">1</label>
+                        </li>
+                        <li><input type="radio" id="checkboxTwo" value="2" name="rating"><label
+                                for="checkboxTwo">2</label></li>
+                        <li><input type="radio" id="checkboxThree" value="3" name="rating"><label
+                                for="checkboxThree">3</label></li>
+                        <li><input type="radio" id="checkboxFour" value="4" name="rating"><label
+                                for="checkboxFour">4</label>
+                        </li>
+                        <li><input type="radio" id="checkboxFive" value="5" name="rating"><label
+                                for="checkboxFive">5</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column_text">Год написания</div>
+                <input type="text" name="year" class="name_input">
+
+                <div class="column_text">Объём</div>
+                <input type="text" name="volume" class="name_input">
+
+            </div>
+
+            <div class="admin_column">
+                <div class="column_text">Аннотация</div>
+                <textarea name="annotation" class="annotation"></textarea>
+            </div>
+
+        </div>
+
+
+        <label for="file" class="file">
+            Выберите файл
+            <input type="file" id="file" class="inputfile" name="file">
+
+        </label>
+
+
+    </form>
+
+
+</center>
+
+</body>
+</html>

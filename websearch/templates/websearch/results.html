@@ -1,0 +1,28 @@
+{% extends 'websearch/index.html' %}
+
+
+{% block content %}
+
+
+ {%  for book in books  %}
+
+     <center>
+     <div id="resultbox"  align="left">
+         <h2 align="left"><font color = "#000" face="Montserrat">{{book.name}}</font></h2>
+         <font face="Montserrat"> <p>{{book.author}}<br>
+         Год написания: {{book.year}}<br>
+         Объём: {{book.volume}}<br>
+         Возрастное ограничение: {{book.age_limit}}+</p>
+         <p align="justify">{{book.annotation}}</p>
+             </font>
+
+     </div>
+
+   </center>
+
+
+ {% endfor %}
+
+
+
+{% endblock%}
