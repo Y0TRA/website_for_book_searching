@@ -53,23 +53,32 @@ def tf(text):
     return wordfreq
 
 
-def search(text, min_volume=None, max_volume=None, min_year=None, max_year=None, rating=None, age_limit=None):
-    query = WordsFreq.objects.all()
+def search(request):
+    post_data = request
+    print(post_data)
 
-    if min_volume is not None:
-        query = query.filter(volume__gte=min_volume)
-    if max_volume is not None:
-        query = query.filter(volume__lte=max_volume)
-    if min_year is not None:
-        query = query.filter(year__gte=min_year)
-    if max_year is not None:
-        query = query.filter(year__lte=max_year)
+    books_list = Book.objects.all()
 
-    # TODO: rating and age_limit
+    if post_data['min_volume'] != "":
+        books_list = books_list.filter(volume__gte=post_data['min_volume'])
+    if post_data['max_volume'] != "":
+        books_list = books_list.filter(volume__lte=post_data['max_volume'])
+    if post_data['min_year'] != "":
+        books_list = books_list.filter(year__gte=post_data['min_year'])
+    if post_data['max_year'] != "":
+        books_list = books_list.filter(year__lte=post_data['max_year'])
+    if post_data.get('age') is not None:
+        books_list = books_list.filter(age_limit__in=post_data.getlist('age'))
+    if post_data.get('rating') is not None:
+        books_list = books_list.filter(rating__in=post_data.getlist('rating'))
 
-    input_text_data = tf(text)
+
+    input_text_data = tf(post_data['text'])
 
     all_matches_docs = {}
+
+    query = WordsFreq.objects.filter(book_id__in=books_list)
+
 
     for key in input_text_data.keys():
         books = query.filter(word=key)
@@ -88,18 +97,36 @@ def search(text, min_volume=None, max_volume=None, min_year=None, max_year=None,
 
 def add(request):
     # TODO: обработка исключений
-    print( request.POST)
-    for value in request.POST.values():
-        if value == '':
-            print("The field is not filled")
-            return
+    print(request.POST)
+    post_data = request.POST
+    if post_data["book"] == "":
+        print("The field is not filled")
+        return
+
+    if post_data["author"] == "":
+        print("The field is not filled")
+        return
+
+    if post_data["rating"] == "":
+        print("The field is not filled")
+        return
+
+    if post_data["year"] == "":
+        print("The field is not filled")
+        return
+
+    if post_data["age"] == "":
+        print("The field is not filled")
+        return
+
+    if post_data["annotation"] == "":
+        print("The field is not filled")
+        return
 
     if request.FILES['file'] == '':
         print("The field is not filled")
         return
 
-
-    post_data = request.POST
     file = request.FILES['file']
 
     # TODO: кажется, тут проблема с кодировкой
@@ -114,13 +141,21 @@ def add(request):
 
     print("Successfully open file")
 
-    new_book = Book(name=post_data["book"],
-                    author=post_data["author"],
-                    rating=post_data["rating"],
-                    volume=post_data["volume"],
-                    year=post_data["year"],
-                    age_limit=post_data["age"],
-                    annotation=post_data["annotation"])
+    if post_data["volume"] != "":
+        new_book = Book(name=post_data["book"],
+                        author=post_data["author"],
+                        rating=post_data["rating"],
+                        volume=post_data["volume"],
+                        year=post_data["year"],
+                        age_limit=post_data["age"],
+                        annotation=post_data["annotation"])
+    else:
+        new_book = Book(name=post_data["book"],
+                        author=post_data["author"],
+                        rating=post_data["rating"],
+                        year=post_data["year"],
+                        age_limit=post_data["age"],
+                        annotation=post_data["annotation"])
     new_book.save()
 
     data = tf(text)

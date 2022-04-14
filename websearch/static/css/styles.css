@@ -7,28 +7,48 @@
     outline: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #84a6d3;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .white_board {
     background-color: #FFFFFF;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 20px;
+}
+
 #searchbox {
-    position: relative;
     border-radius: 53px;
     /* border: 2px solid #609; */
     padding: 40px;
-    width: 50%;
+    width: 100%;
     height: 200px;
-
-    top: 40px;
-
+    display: block;
     font-size: 20px;
-    font-family: 'Montserrat', sans-serif;
 
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); /* Параметры тени */
     outline: none;
     border-color: white;
     resize: none;
-
 }
 
 .search_button {
@@ -43,16 +63,12 @@
     /* border: 2px solid #609; */
     width: 350px;
     height: 60px;
-
-    margin: 35px 0px;
+    margin-top: 35px;
 
     position: relative;
 
-
     font-size: 40px;
 
-
-    font-family: 'Montserrat', sans-serif;
     outline: none;
 
     border: none;
@@ -72,7 +88,6 @@
 .filterbox {
     border-radius: 53px;
     /* border: 2px solid #609; */
-    margin-top: -10%;
 
     width: 55.5%;
     height: auto;
@@ -87,22 +102,27 @@
 
 }
 
-#resultbox {
+.resultbox {
     background: #FFA773; /* Цвет фона */
     color: #fff; /* Цвет текста */
     padding: 15px 30px; /* Поля вокруг текста */
-    margin: 40px;
-
+    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
     border-radius: 53px; /* Уголки */
 
     width: 700px;
     height: auto;
-
-
 }
 
-#results_background {
+.resultbox:last-child {
+    margin-bottom: 0;
+}
+
+#results {
     background-color: #FFFFFF;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 
@@ -110,16 +130,12 @@
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 75%;
-
-
+    width: 100%;
+    text-align: center;
 }
 
 .box {
-    margin: 20% 5% 0% 5%;
     padding: 5%;
-
-
 }
 
 .container {
@@ -206,7 +222,6 @@ ul.ks-cboxtags li input[type="radio"]:checked + label {
 }
 
 
-
 ul.ks-cboxtags li input[type="radio"] {
     /*display: absolute;*/
 }
@@ -219,11 +234,13 @@ ul.ks-cboxtags li input[type="radio"] {
 
 .rounded-input {
     border-radius: 15px;
-    width: 2em;
-    height: 1em;
+    width: 4rem;
+    height: 1.5rem;
     outline: none;
     background-color: white;
     border: 0px;
+    padding: 0.5rem;
+
 }
 
 /* Admin panel */

@@ -5,12 +5,15 @@ from .analyze import *
 
 
 def main_page(request):
-    return render(request, 'websearch/index.html', {})
+    books = []
+    if request.POST.get('text') is not None:
+        books = search(request.POST)
+
+    return render(request, 'websearch/index.html', {'books': books})
 
 
 def results_page(request):
-    text = request.POST['text']
-    books = search(text)
+    books = search(request.POST)
 
     return render(request, 'websearch/results.html', {'books': books})
 
