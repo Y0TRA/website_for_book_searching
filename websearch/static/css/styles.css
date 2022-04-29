@@ -344,3 +344,20 @@ ul.ks-cboxtags li input[type="radio"] {
 .column_text {
     margin-bottom: 15px;
 }
+
+
+/* Login screen */
+/* -------------------------------------------------- */
+.login_form {
+
+    background: #FFA773; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 15px 30px;
+    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 53px; /* Уголки */
+
+    width: auto;
+    height: auto;
+}
