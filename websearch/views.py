@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 
 from .analyze import *
+from .forms import LoginUserForm
 
 
 def main_page(request):
@@ -32,7 +33,7 @@ def admin_save_page(request):
 
 
 class LoginUser(LoginView):
-    form_class = AuthenticationForm
+    form_class = LoginUserForm
     template_name = 'websearch/login.html'
 
     def get_success_url(self):

@@ -348,16 +348,32 @@ ul.ks-cboxtags li input[type="radio"] {
 
 /* Login screen */
 /* -------------------------------------------------- */
-.login_form {
 
-    background: #FFA773; /* Цвет фона */
-    color: #fff; /* Цвет текста */
-    padding: 15px 30px;
-    margin: 0 auto 40px;
+.wrapper {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    overflow: auto;
+
+}
+
+.block {
     display: flex;
     flex-direction: column;
-    border-radius: 53px; /* Уголки */
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 
-    width: auto;
-    height: auto;
+    width: 50%;
+    height: 25%;
+
+    background-color: #FFA773;
+
+    border-radius: 30px;
 }
