@@ -3,8 +3,10 @@ from nltk.corpus import stopwords
 import pymorphy2
 import sqlite3 as sql
 
-# TODO: ограничение не маленькие значения слов
-# TODO: поиск по синонимам
+import requests
+import json
+
+
 from .models import Book, WordsFreq
 
 stopwords_ru = stopwords.words("russian")
@@ -53,6 +55,20 @@ def tf(text):
     return wordfreq
 
 
+def get_synonyms(word):
+    synonyms = []
+    data = requests.get(f"http://www.serelex.org/find/ru-skipgram-librusec/{word}").text
+
+    data = json.loads(data)
+
+    print(data)
+    if data["totalRelations"] > 0:
+        for key in data["relations"]:
+            synonyms.append(key["word"])
+
+    return synonyms
+
+
 def search(request):
     post_data = request
     print(post_data)
@@ -72,15 +88,17 @@ def search(request):
     if post_data.get('rating') is not None:
         books_list = books_list.filter(rating__in=post_data.getlist('rating'))
 
-
     input_text_data = tf(post_data['text'])
+
+    input_words_with_synonyms = list(input_text_data.keys())
+    for word in  input_text_data.keys():
+        input_words_with_synonyms += get_synonyms(word)
 
     all_matches_docs = {}
 
     query = WordsFreq.objects.filter(book_id__in=books_list)
 
-
-    for key in input_text_data.keys():
+    for key in input_words_with_synonyms:
         books = query.filter(word=key)
         for book in books:
             if book.book_id not in all_matches_docs.keys():
@@ -90,7 +108,7 @@ def search(request):
 
     sorted_tuple = sorted(all_matches_docs.items(), key=lambda x: x[1])[::-1]
 
-    print("FREQ INFO:", sorted_tuple)
+    # print("FREQ INFO:", sorted_tuple)
 
     return dict(sorted_tuple).keys()
 

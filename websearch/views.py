@@ -1,5 +1,8 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 
 from .analyze import *
 
@@ -26,3 +29,11 @@ def admin_save_page(request):
     add(request)
 
     return render(request, 'websearch/admin.html', {})
+
+
+class LoginUser(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'websearch/login.html'
+
+    def get_success_url(self):
+        return reverse_lazy('admin_page')
