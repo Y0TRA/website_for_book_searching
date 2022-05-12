@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render
@@ -22,6 +23,7 @@ def results_page(request):
     return render(request, 'websearch/results.html', {'books': books})
 
 
+@login_required(login_url='login_page')
 def admin_page(request):
     return render(request, 'websearch/admin.html', {})
 
