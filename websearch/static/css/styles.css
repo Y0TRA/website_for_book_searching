@@ -44,12 +44,20 @@ input::-webkit-inner-spin-button {
     height: 200px;
     display: block;
     font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
 
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.3); /* Параметры тени */
     outline: none;
     border-color: white;
     resize: none;
 }
+
+@media (max-width: 911px) {
+    #searchbox {
+        padding: 20px;
+    }
+}
+
 
 .search_button {
 
@@ -98,8 +106,13 @@ input::-webkit-inner-spin-button {
     font-family: 'Montserrat', sans-serif;
 
     background: #FFA773;
+}
 
-
+@media (max-width: 911px) {
+    .filterbox {
+        width: 96%;
+        font-size: 14px;
+    }
 }
 
 .resultbox {
@@ -111,8 +124,20 @@ input::-webkit-inner-spin-button {
     flex-direction: column;
     border-radius: 53px; /* Уголки */
 
-    width: 700px;
+    width: 70%;
     height: auto;
+}
+
+@media (min-width: 1280px) {
+    .resultbox {
+        width: 50%;
+    }
+}
+
+@media (max-width: 911px) {
+    .resultbox {
+        width: 90%;
+    }
 }
 
 .resultbox:last-child {
@@ -125,7 +150,15 @@ input::-webkit-inner-spin-button {
     padding-bottom: 30px;
 }
 
+.desc {
+    font-size: 16px;
+}
 
+@media (max-width: 911px) {
+    .desc {
+        font-size: 14px;
+    }
+}
 .flexbox {
     display: inline-flex;
     flex-direction: row;
@@ -240,7 +273,12 @@ ul.ks-cboxtags li input[type="radio"] {
     background-color: white;
     border: 0px;
     padding: 0.5rem;
+}
 
+@media (max-width: 911px) {
+    .rounded-input {
+        margin-top: 2px;
+    }
 }
 
 /* Admin panel */
@@ -250,11 +288,19 @@ ul.ks-cboxtags li input[type="radio"] {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     background: antiquewhite; /* Цвет фона */
-    color: #adadad; /* Цвет текста */
+    color: #000; /* Цвет текста */
     padding: 15px 30px; /* Поля вокруг текста */
-    margin: 40px;
+    display: inline-block;
 
     border-radius: 53px; /* Уголки */
+
+    cursor: pointer;
+    transition: background ease-in-out 0.3s;
+}
+
+.file:hover {
+        background: #FFA773;
+/* Цвет фона */
 }
 
 .inputfile {
@@ -284,17 +330,19 @@ ul.ks-cboxtags li input[type="radio"] {
 
 
 .name_input {
-    width: 80%;
 
     background: #FFFFFF; /* Цвет фона */
     color: #000000; /* Цвет текста */
     padding: 15px 30px; /* Поля вокруг текста */
-    margin-bottom: 15px;
 
     border-radius: 53px; /* Уголки */
     border: none;
 
+    margin-bottom: 15px;
+}
 
+.input-wrapper .name_input {
+    margin-bottom: 0;
 }
 
 .admin_column {
@@ -326,6 +374,7 @@ ul.ks-cboxtags li input[type="radio"] {
 
     border: none;
 
+    cursor: pointer;
 }
 
 .annotation {
@@ -368,12 +417,28 @@ ul.ks-cboxtags li input[type="radio"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    align-content: center;
 
-    width: 50%;
+    width: 40%;
     height: 25%;
 
     background-color: #FFA773;
 
     border-radius: 30px;
+}
+
+.input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.input-wrapper label {
+    margin-right: 7px;
+}
+
+#files_info {
+    margin-top: 8px;
+    color: white;
+    font-size: 12px;
 }

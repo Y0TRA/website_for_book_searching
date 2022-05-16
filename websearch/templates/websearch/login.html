@@ -26,9 +26,11 @@
 
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for f in form %}
+            <div class="input-wrapper"><label for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</div>
+            {% endfor %}
 
-            <button type="submit">Войти</button>
+            <button type="submit" class="save_button">Войти</button>
         </form>
     </div>
 </div>

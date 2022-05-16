@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8"/>
     <title>Поиск книг</title>
-    <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 
-    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
 
@@ -94,13 +93,16 @@
     {% for book in books %}
     <div class="resultbox"  align="left">
         <h2 align="left"><font color="#000" face="Montserrat">{{book.name}}</font></h2>
-        <font face="Montserrat"><p>{{book.author}}<br>
+        <div class="desc">
+            <font face="Montserrat"><p>{{book.author}}<br>
             Год написания: {{book.year}}<br>
             Объём: {{book.volume}}<br>
             Возрастное ограничение: {{book.age_limit}}+<br>
             Рейтинг: {{book.rating}}</p>
             <p align="justify">{{book.annotation}}</p>
         </font>
+
+        </div>
 
     </div>
     {% endfor %}
