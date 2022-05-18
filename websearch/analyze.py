@@ -1,11 +1,10 @@
+import csv
+
 from nltk import sent_tokenize, regexp_tokenize
 from nltk.corpus import stopwords
 import pymorphy2
-import sqlite3 as sql
-
 import requests
 import json
-
 
 from .models import Book, WordsFreq
 
@@ -61,7 +60,6 @@ def get_synonyms(word):
 
     data = json.loads(data)
 
-    print(data)
     if data["totalRelations"] > 0:
         for key in data["relations"]:
             synonyms.append(key["word"])
@@ -91,7 +89,7 @@ def search(request):
     input_text_data = tf(post_data['text'])
 
     input_words_with_synonyms = list(input_text_data.keys())
-    for word in  input_text_data.keys():
+    for word in input_text_data.keys():
         input_words_with_synonyms += get_synonyms(word)
 
     all_matches_docs = {}
@@ -117,6 +115,15 @@ def add(request):
     # TODO: обработка исключений
     print(request.POST)
     post_data = request.POST
+
+    files = request.FILES.getlist('file')
+    print(files)
+    if len(files) > 1:
+        add_multiple(files)
+        return
+    else:
+        file = files[0]
+
     if post_data["book"] == "":
         print("The field is not filled")
         return
@@ -124,59 +131,81 @@ def add(request):
     if post_data["author"] == "":
         print("The field is not filled")
         return
-
-    if post_data["rating"] == "":
-        print("The field is not filled")
-        return
-
+    #
+    # if post_data["rating"] == "":
+    #     print("The field is not filled")
+    #     return
+    #
     if post_data["year"] == "":
         print("The field is not filled")
         return
 
-    if post_data["age"] == "":
-        print("The field is not filled")
-        return
+    # if post_data["age"] == "":
+    #     print("The field is not filled")
+    #     return
+    #
+    # if post_data["annotation"] == "":
+    #     print("The field is not filled")
+    #     return
+    #
+    # if request.FILES['file'] == '':
+    #     print("The field is not filled")
+    #     return
 
-    if post_data["annotation"] == "":
-        print("The field is not filled")
-        return
 
-    if request.FILES['file'] == '':
-        print("The field is not filled")
-        return
 
-    file = request.FILES['file']
-
-    # TODO: кажется, тут проблема с кодировкой
     try:
         text = file.read().decode('utf-8')
-    except:
-        try:
-            text = file.read().decode('utf-16')
-        except:
-            print("Can't open file")
-            return
+    except BaseException:
+        raise Exception('Ошибка кодировки файла')
 
     print("Successfully open file")
 
-    if post_data["volume"] != "":
-        new_book = Book(name=post_data["book"],
-                        author=post_data["author"],
-                        rating=post_data["rating"],
-                        volume=post_data["volume"],
-                        year=post_data["year"],
-                        age_limit=post_data["age"],
-                        annotation=post_data["annotation"])
-    else:
-        new_book = Book(name=post_data["book"],
-                        author=post_data["author"],
-                        rating=post_data["rating"],
-                        year=post_data["year"],
-                        age_limit=post_data["age"],
-                        annotation=post_data["annotation"])
+    new_book = Book(name=post_data["book"],
+                    author=post_data["author"],
+                    rating=post_data["rating"],
+                    volume=post_data["volume"],
+                    year=post_data["year"],
+                    age_limit=post_data["age"],
+                    annotation=post_data["annotation"])
+
     new_book.save()
 
     data = tf(text)
+    print("Start inserting words...")
+    # for key in data.keys():
+    #     WordsFreq(book_id=new_book, word=key, word_freq=data[key]).save()
+    print("Successfully insert")
+
+
+def add_multiple(files):
+    files_info = {}
+
+    for f in files:
+        if ".csv" in f.name:
+            csv_file = f.read().decode('utf-8').split("\n")[1:]
+            for line in csv_file:
+                fields = line.split(";")
+                files_info[fields[0]] = fields[1:]
+
+    print(files_info.keys())
+    for file in files:
+        if ".csv" not in file.name:
+            file_text = file.read().decode('utf-8')
+            add_one(file.name.replace(".txt", ""), files_info[file.name.replace(".txt", "")], file_text)
+
+
+def add_one(name, file_info, file_text):
+    print(file_info)
+    new_book = Book(name=name,
+                    author=file_info[0],
+                    rating=file_info[1],
+                    year=file_info[2],
+                    age_limit=file_info[3],
+                    annotation=file_info[4],
+                    volume=len(file_text.split(" ")))
+    new_book.save()
+    data = tf(file_text)
     print("Start inserting words...")
     for key in data.keys():
         WordsFreq(book_id=new_book, word=key, word_freq=data[key]).save()
