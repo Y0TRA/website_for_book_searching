@@ -51,6 +51,9 @@ def tf(text):
     for key in wordfreq.keys():
         wordfreq[key] = wordfreq[key] / amount
 
+    for key in list(wordfreq.keys()):
+        if wordfreq[key] < 0.00003:
+            del wordfreq[key]
     return wordfreq
 
 
@@ -131,28 +134,10 @@ def add(request):
     if post_data["author"] == "":
         print("The field is not filled")
         return
-    #
-    # if post_data["rating"] == "":
-    #     print("The field is not filled")
-    #     return
-    #
+
     if post_data["year"] == "":
         print("The field is not filled")
         return
-
-    # if post_data["age"] == "":
-    #     print("The field is not filled")
-    #     return
-    #
-    # if post_data["annotation"] == "":
-    #     print("The field is not filled")
-    #     return
-    #
-    # if request.FILES['file'] == '':
-    #     print("The field is not filled")
-    #     return
-
-
 
     try:
         text = file.read().decode('utf-8')
@@ -172,9 +157,10 @@ def add(request):
     new_book.save()
 
     data = tf(text)
+
     print("Start inserting words...")
-    # for key in data.keys():
-    #     WordsFreq(book_id=new_book, word=key, word_freq=data[key]).save()
+    for key in data.keys():
+        WordsFreq(book_id=new_book, word=key, word_freq=data[key]).save()
     print("Successfully insert")
 
 
