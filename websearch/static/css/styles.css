@@ -159,6 +159,7 @@ input::-webkit-inner-spin-button {
         font-size: 14px;
     }
 }
+
 .flexbox {
     display: inline-flex;
     flex-direction: row;
@@ -299,8 +300,8 @@ ul.ks-cboxtags li input[type="radio"] {
 }
 
 .file:hover {
-        background: #FFA773;
-/* Цвет фона */
+    background: #FFA773;
+    /* Цвет фона */
 }
 
 .inputfile {
@@ -315,7 +316,7 @@ ul.ks-cboxtags li input[type="radio"] {
 .admin_container {
     background: #FFA773; /* Цвет фона */
     color: #000000; /* Цвет текста */
-    padding: 40px 30px; /* Поля вокруг текста */
+    padding: 0 30px 40px 30px; /* Поля вокруг текста */
     margin-bottom: 40px;
 
     border-radius: 0 0 53px 53px; /* Уголки */
@@ -394,6 +395,19 @@ ul.ks-cboxtags li input[type="radio"] {
     margin-bottom: 15px;
 }
 
+.logout_container {
+    background: #FFA773; /* Цвет фона */
+    color: #000000; /* Цвет текста */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 30px;
+
+    display: flex;
+    flex-direction: row-reverse;
+
+    width: 100%;
+}
+
 
 /* Login screen */
 /* -------------------------------------------------- */
@@ -442,3 +456,4 @@ ul.ks-cboxtags li input[type="radio"] {
     color: white;
     font-size: 12px;
 }
+

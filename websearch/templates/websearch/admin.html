@@ -23,15 +23,22 @@
 
 <center>
 
-    <form enctype="multipart/form-data"  action="{% url 'admin_save_page' %}" method="post">
+
+    <form enctype="multipart/form-data" action="{% url 'admin_save_page' %}" method="post">
+
         {% csrf_token %}
+        <div class="logout_container">
+            <a href="{% url 'logout' %}">Выйти из аккаунта</a>
+        </div>
+
         <div class="admin_container">
+
 
             <div class="admin_column">
                 <div class="column_text">Добавление новой книги</div>
                 <input type="text" name="book" class="name_input" placeholder="Название">
                 <input type="text" name="author" class="name_input" placeholder="Автор">
-                <button class="save_button" type="submit" >Сохранить</button>
+                <button class="save_button" type="submit">Сохранить</button>
 
             </div>
             <div class="admin_column">
