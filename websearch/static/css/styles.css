@@ -344,6 +344,7 @@ ul.ks-cboxtags li input[type="radio"] {
 
 .input-wrapper .name_input {
     margin-bottom: 0;
+    width: 70%;
 }
 
 .admin_column {
@@ -367,6 +368,7 @@ ul.ks-cboxtags li input[type="radio"] {
     background-color: #84A6D3;
     color: antiquewhite;
     padding: 15px 30px; /* Поля вокруг текста */
+    margin-top: 10px;
 
     border-radius: 53px; /* Уголки */
 
@@ -432,12 +434,20 @@ ul.ks-cboxtags li input[type="radio"] {
     justify-content: center;
     align-items: center;
 
-    width: 40%;
+    width:auto;
     height: 25%;
 
     background-color: #FFA773;
 
     border-radius: 30px;
+    padding: 0 30px 0 30px;
+}
+
+@media (max-width: 1000px) {
+    .block {
+        width: 90%;
+        height: 80%;
+    }
 }
 
 .input-wrapper {
@@ -447,9 +457,11 @@ ul.ks-cboxtags li input[type="radio"] {
     margin-bottom: 15px;
 }
 
+
 .input-wrapper label {
     margin-right: 7px;
 }
+
 
 #files_info {
     margin-top: 8px;

@@ -29,6 +29,9 @@
             {% for f in form %}
             <div class="input-wrapper"><label for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</div>
             {% endfor %}
+            {% if form.errors %}
+            <p>Неверны введены логин или пароль</p>
+            {% endif %}
 
             <button type="submit" class="save_button">Войти</button>
         </form>
